@@ -193,7 +193,7 @@ Pane {
             
             MediaPlayer {
                 id: player
-                
+
                 videoOutput: videoOutput
                 autoPlay: true
                 playbackRate: config.BackgroundSpeed == "" ? 1.0 : config.BackgroundSpeed
@@ -205,10 +205,19 @@ Pane {
             }
 
             VideoOutput {
-                id: videoOutput
-                
-                fillMode: config.CropBackground == "true" ? VideoOutput.PreserveAspectCrop : VideoOutput.PreserveAspectFit
-                anchors.fill: parent
+		id: videoOutput
+
+		anchors.horizontalCenter: parent.horizontalCenter
+		anchors.bottom: parent.bottom
+
+		width: parent.width
+		height: (parent.width / config.VideoWidth) * config.VideoHeight
+		// height: source ? (parent.width / source.videoSize.width) * source.videoSize.height : parent.height
+
+		fillMode: config.CropBackground == "true" ? VideoOutput.PreserveAspectCrop : VideoOutput.PreserveAspectFit
+
+                // fillMode: config.CropBackground == "true" ? VideoOutput.PreserveAspectCrop : VideoOutput.PreserveAspectFit
+                // anchors.fill: parent
             }
 
             height: parent.height
